@@ -2,7 +2,6 @@ package com.udemy.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.udemy.course.entities.pk.OrderItemPK;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
