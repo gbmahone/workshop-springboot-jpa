@@ -4,12 +4,14 @@ import com.udemy.course.entities.User;
 import com.udemy.course.repositories.UserRepository;
 import com.udemy.course.services.exceptions.DatabaseException;
 import com.udemy.course.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -42,11 +44,16 @@ public class UserService {
 
     }
 
+
+
     public User update(Long id, User obj) {
-        User entity = repository.getReferenceById(id);
+        User entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
         updateData(entity, obj);
         return repository.save(entity);
     }
+
 
     private void updateData(User entity, User obj) {
     entity.setName(obj.getName());
